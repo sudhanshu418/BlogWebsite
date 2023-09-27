@@ -11,7 +11,7 @@ export default function Home() {
       </div>
       <div className={styles.item}>
         <h1 className={styles.title}>
-          EXPLORE BLOGS.
+          Better design for your digital Lifestlye
         </h1>
         <p className={styles.desc}>
           Enriching lives through insightful lifestyle blogs.
