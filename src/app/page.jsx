@@ -11,11 +11,10 @@ export default function Home() {
       </div>
       <div className={styles.item}>
         <h1 className={styles.title}>
-          Better design for your digital products.
+          EXPLORE BLOGS.
         </h1>
         <p className={styles.desc}>
-          Turning your Idea into Reality. We bring together the teams from the
-          global tech industry.
+          Enriching lives through insightful lifestyle blogs.
         </p>
         <Button url="/portfolio" text="See Our Works"/>
       </div>
