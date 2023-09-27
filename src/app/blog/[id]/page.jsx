@@ -7,9 +7,8 @@ async function getData(id) {
   const res = await fetch(`https://blog-website-wlm1.vercel.app/api/posts/${id}`, {
     cache: "no-store",
   });
-
   if (!res.ok) {
-    return notFound()
+    return notFound();
   }
 
   return res.json();
@@ -42,6 +41,7 @@ const BlogPost = async ({ params }) => {
               width={40}
               height={40}
               className={styles.avatar}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <span className={styles.username}>{data.username}</span>
           </div>
@@ -52,6 +52,7 @@ const BlogPost = async ({ params }) => {
             alt=""
             fill={true}
             className={styles.image}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </div>
