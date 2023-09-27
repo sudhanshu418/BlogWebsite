@@ -7,6 +7,9 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.item}>
+        <Image src={Hero} alt="" className={styles.img} />
+      </div>
+      <div className={styles.item}>
         <h1 className={styles.title}>
           Better design for your digital products.
         </h1>
@@ -15,9 +18,6 @@ export default function Home() {
           global tech industry.
         </p>
         <Button url="/portfolio" text="See Our Works"/>
-      </div>
-      <div className={styles.item}>
-        <Image src={Hero} alt="" className={styles.img} />
       </div>
     </div>
   );
