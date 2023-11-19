@@ -24,28 +24,16 @@ const About = () => {
         <div className={styles.item}>
           <h1 className={styles.title}>Who Are We?</h1>
           <p className={styles.desc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            quae dolor, optio voluptatibus magnam iure esse tempora beatae. A
-            suscipit eos. Animi quibusdam cum omnis officiis voluptatum quo ea
-            eveniet? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus quae dolor, optio voluptatibus magnam iure esse tempora
-            beatae, a suscipit eos. Animi quibusdam cum omnis officiis
-            <br />
-            <br />
-            voluptatum quo ea eveniet? Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Ducimus quae dolor, optio voluptatibus magnam iure
-            esse tempora beatae, a suscipit eos. Animi quibusdam cum omnis
-            officiis voluptatum quo ea eveniet?
+           Plenty of people who have heard the term “blogging” fail to understand what a “blog” is or
+            how creating or reading one can impact or improve their lives. 
+            Whether you have absolutely no idea what these terms mean or you know the basics but want to learn more, 
+            this guide provides you with a thorough breakdown of the topic.
           </p>
         </div>
         <div className={styles.item}>
           <h1 className={styles.title}>What We Do?</h1>
           <p className={styles.desc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            quae dolor, optio voluptatibus magnam iure esse tempora beatae, a
-            suscipit eos. Animi quibusdam cum omnis officiis voluptatum quo ea
-            eveniet? Lorem ipsum dolor sit amet consectetur adipisicing elit. -
-            Creative Illustrations
+            welcome to this website
             <br />
             <br /> - Dynamic Websites
             <br />
