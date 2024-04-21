@@ -7,7 +7,14 @@
 
 .logo {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 26px;
+  font-weight: 900;
+  text-decoration: none;
+  background: linear-gradient(to right, #a1a1a1 50%, #982121 50%, #630941);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease-out;
 }
 
 .links {
@@ -19,8 +26,26 @@
 .logout {
   padding: 5px;
   border: none;
-  background-color: #53c28b;
+  background-color: #630941;
   color: white;
   cursor: pointer;
   border-radius: 3px;
 }
+
+.link{
+  font-size: 16px;
+  font-weight: 900;
+  text-decoration: none;
+  background: linear-gradient(to right, #a1a1a1 50%, #982121 50%, #630941);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease-out;
+}
+ 
+ .link:hover {
+  background-position: -100%;
+ }
+ .logo:hover {
+  background-position: -100%;
+ }

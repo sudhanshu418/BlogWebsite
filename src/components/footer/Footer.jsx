@@ -7,10 +7,18 @@ const Footer = () => {
     <div className={styles.container}>
       <div>@Sudhanshu</div>
       <div className={styles.social}>
-        <Image src="/1.png" width={15} height={15} className={styles.icon} alt="Facebook Account" />
-        <Image src="/2.png" width={15} height={15} className={styles.icon} alt="Lama Dev" />
-        <Image src="/3.png" width={15} height={15} className={styles.icon} alt="Lama Dev" />
-        <Image src="/4.png" width={15} height={15} className={styles.icon} alt="Lama Dev" />
+        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <Image src="/1.png" width={15} height={15} className={styles.icon} alt="Facebook Account" />
+        </a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <Image src="/2.png" width={15} height={15} className={styles.icon} alt="Instagram Account" />
+        </a>
+        <a href="https://twitter.com/yourtwitteraccount" target="_blank" rel="noopener noreferrer">
+          <Image src="/3.png" width={15} height={15} className={styles.icon} alt="Twitter Account" />
+        </a>
+        <a href="https://www.youtube.com/youryoutubeaccount" target="_blank" rel="noopener noreferrer">
+          <Image src="/4.png" width={15} height={15} className={styles.icon} alt="Youtube Dev Account" />
+        </a>
       </div>
     </div>
   );
