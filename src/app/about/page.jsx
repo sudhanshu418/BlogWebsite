@@ -16,7 +16,7 @@ const About = () => {
         <div className={styles.imgText}>
           <h1 className={styles.imgTitle}>Digital Storytellers</h1>
           <h2 className={styles.imgDesc}>
-            Handcrafting award winning digital experiences
+            Handcrafting award-winning digital experiences
           </h2>
         </div>
       </div>
@@ -24,16 +24,18 @@ const About = () => {
         <div className={styles.item}>
           <h1 className={styles.title}>Who Are We?</h1>
           <p className={styles.desc}>
-           Plenty of people who have heard the term “blogging” fail to understand what a “blog” is or
-            how creating or reading one can impact or improve their lives. 
-            Whether you have absolutely no idea what these terms mean or you know the basics but want to learn more, 
-            this guide provides you with a thorough breakdown of the topic.
+            At Our Company Name, we are a team of dedicated professionals
+            passionate about creating compelling and engaging digital
+            experiences. We pride ourselves on being innovative digital
+            storytellers, crafting narratives that captivate, inform, and
+            inspire.
           </p>
         </div>
         <div className={styles.item}>
           <h1 className={styles.title}>What We Do?</h1>
           <p className={styles.desc}>
-            welcome to this website
+            Welcome to our website, where we offer a range of services to meet
+            your digital needs:
             <br />
             <br /> - Dynamic Websites
             <br />
