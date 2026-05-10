@@ -1,20 +1,28 @@
-"use client"
+"use client";
 
 import React, { useContext } from "react";
 import styles from "./darkModeToggle.module.css";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const DarkModeToggle = () => {
-  const { toggle,mode } = useContext(ThemeContext);
+  const { toggle, mode } = useContext(ThemeContext);
+  const isDark = mode === "dark";
+
   return (
-    <div className={styles.container} onClick={toggle}>
-      <div className={styles.icon}>🌙</div>
-      <div className={styles.icon}>🔆</div>
-      <div
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      aria-pressed={isDark}
+      className={styles.container}
+    >
+      <span className={styles.icon} aria-hidden="true">🌙</span>
+      <span className={styles.icon} aria-hidden="true">🔆</span>
+      <span
         className={styles.ball}
-        style={mode === "light" ? { left: "2px" } : { right: "2px" }}
+        style={isDark ? { right: "2px" } : { left: "2px" }}
       />
-    </div>
+    </button>
   );
 };
 

@@ -1,18 +1,35 @@
 .container {
-  height: 50px;
+  min-height: 50px;
+  padding: 16px 0;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  color: var(--soft);
 }
 
 .social {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 .icon {
-  opacity: 0.6;
+  opacity: 0.65;
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.icon:hover {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
 }

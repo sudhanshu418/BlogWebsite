@@ -10,23 +10,75 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #555555;
+  --soft: #777777;
+  --border: #e4e4e4;
+  --card: #f6f6f6;
+  --accent: #630941;
+  --accent-hover: #7c0b52;
+  --on-accent: #ffffff;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+}
+
+html[data-theme="dark"] {
+  --bg: #0f0f10;
+  --text: #ededed;
+  --muted: #b5b5b5;
+  --soft: #8a8a8a;
+  --border: #262628;
+  --card: #1a1a1c;
+  --accent: #c13d86;
+  --accent-hover: #d85a9f;
+  --on-accent: #ffffff;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
-.theme{
-  transition: 1s all ease;
+button {
+  font-family: inherit;
 }
 
-.light {
-  background-color: white;
-  color: #111;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
+::selection {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.theme {
+  transition: background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.light,
 .dark {
-  background-color: #111;
-  color: #bbb;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .container {
@@ -37,4 +89,81 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+main,
+.container > :not(:first-child):not(:last-child) {
+  animation: pageFadeIn var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--card);
+  border-radius: 8px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s var(--ease-in-out) infinite;
+}
+
+html[data-theme="dark"] .skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

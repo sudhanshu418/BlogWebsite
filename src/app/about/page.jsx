@@ -3,6 +3,12 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 
+export const metadata = {
+  title: "About — Daily Blog",
+  description:
+    "Who's behind Daily Blog and what we write, design, and build.",
+};
+
 const About = () => {
   return (
     <div className={styles.container}>
@@ -14,36 +20,42 @@ const About = () => {
           className={styles.img}
         />
         <div className={styles.imgText}>
-          <h1 className={styles.imgTitle}>Digital Storytellers</h1>
+          <h1 className={styles.imgTitle}>Daily Blog</h1>
           <h2 className={styles.imgDesc}>
-            Handcrafting award-winning digital experiences
+            Writing and making things on the web
           </h2>
         </div>
       </div>
       <div className={styles.textContainer}>
         <div className={styles.item}>
-          <h1 className={styles.title}>Who Are We?</h1>
+          <h1 className={styles.title}>Who we are</h1>
           <p className={styles.desc}>
-            At Our Company Name, we are a team of dedicated professionals
-            passionate about creating compelling and engaging digital
-            experiences. We pride ourselves on being innovative digital
-            storytellers, crafting narratives that captivate, inform, and
-            inspire.
+            Daily Blog is a small, independent publication about design,
+            lifestyle, and the craft of building digital products. Every post
+            here comes from direct experience — things we&apos;ve tried,
+            shipped, broken, and fixed — written plainly and without filler.
           </p>
         </div>
         <div className={styles.item}>
-          <h1 className={styles.title}>What We Do?</h1>
+          <h1 className={styles.title}>What we write about</h1>
           <p className={styles.desc}>
-            Welcome to our website, where we offer a range of services to meet
-            your digital needs:
-            <br />
-            <br /> - Dynamic Websites
-            <br />
-            <br /> - Fast and Handy
-            <br />
-            <br /> - Mobile Apps
+            Our work and our writing move between three areas:
           </p>
-          <Button url="/contact" text="Contact" />
+          <ul className={styles.list}>
+            <li>
+              <strong>Web design &amp; development</strong> — interfaces that
+              are fast, accessible, and calm to use.
+            </li>
+            <li>
+              <strong>Brand &amp; identity</strong> — visual systems that
+              scale from a single logo to a full product suite.
+            </li>
+            <li>
+              <strong>Product &amp; mobile apps</strong> — shipping polished
+              experiences end-to-end, not just the marketing site.
+            </li>
+          </ul>
+          <Button url="/contact" text="Get in touch" />
         </div>
       </div>
     </div>

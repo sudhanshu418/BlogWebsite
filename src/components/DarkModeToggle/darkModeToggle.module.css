@@ -1,7 +1,7 @@
-.container{
+.container {
   width: 42px;
   height: 24px;
-  border: 1.5px solid #630941;
+  border: 1.5px solid var(--accent);
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -9,16 +9,19 @@
   padding: 2px;
   position: relative;
   cursor: pointer;
+  background-color: transparent;
 }
 
-.icon{
+.icon {
   font-size: 12px;
+  line-height: 1;
 }
 
-.ball{
+.ball {
   width: 15px;
   height: 15px;
-  background-color: #3c0304;
+  background-color: var(--accent);
   border-radius: 50%;
   position: absolute;
+  transition: left 0.2s ease, right 0.2s ease;
 }

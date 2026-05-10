@@ -3,14 +3,15 @@
 
 .title {
   font-size: 60px;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   text-align: center;
+  color: var(--text);
 }
 
 .content {
   display: flex;
   align-items: center;
-  gap: 100px;
+  gap: 80px;
 }
 
 .imgContainer {
@@ -21,33 +22,88 @@
 
 .image {
   object-fit: contain;
-  /* animation: move 3s infinite ease alternate; */
-}
-
-@keyframes move {
-  from {
-    transform: translateY(-15px);
-  }
-  to {
-    transform: translateY(0px) scale(1.03);
-  }
 }
 
 .form {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .input,
 .textArea {
-  padding: 20px;
+  padding: 16px;
   background-color: transparent;
-  border: none;
   outline: none;
-  color: #bbb;
-  border: 3px solid #bbb;
-  font-size: 20px;
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus,
+.textArea:focus {
+  border-color: var(--accent);
+}
+
+.textArea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.submit {
+  padding: 16px;
+  cursor: pointer;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: var(--on-accent);
   font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.15s ease;
+}
+
+.submit:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status {
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.statusSuccess {
+  background-color: rgba(83, 194, 139, 0.15);
+  color: #3a9a6a;
+}
+
+.statusError {
+  background-color: rgba(214, 69, 69, 0.15);
+  color: #c23b3b;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 36px;
+    margin-bottom: 32px;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .imgContainer {
+    height: 280px;
+    width: 100%;
+  }
 }

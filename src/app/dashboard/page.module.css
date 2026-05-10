@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: 100px;
+  gap: 80px;
 }
 
 .posts {
@@ -11,48 +11,116 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 50px 0px;
+  gap: 20px;
+  padding: 16px;
+  margin: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background-color: var(--card);
 }
 
 .imgContainer {
   width: 200px;
   height: 100px;
-  position: Ū;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .img {
   object-fit: cover;
 }
 
+.postTitle {
+  flex: 1;
+  font-size: 18px;
+  color: var(--text);
+}
+
 .delete {
   cursor: pointer;
-  color: red;
+  color: #d64545;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.delete:hover {
+  background-color: rgba(214, 69, 69, 0.12);
 }
 
 .new {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .input,
 .textArea {
-  padding: 10px;
-  background-color: transparent;
-  border: 2px solid #bbb;
-  border-radius: 3px;
-  color: #bbb;
-  font-size: 20px;
-  font-weight: bold;
+  padding: 12px 14px;
+  background-color: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus,
+.textArea:focus {
+  border-color: var(--accent);
+}
+
+.textArea {
+  resize: vertical;
+  min-height: 140px;
 }
 
 .button {
-  padding: 20px;
+  padding: 14px;
   cursor: pointer;
-  background-color: #630941;
+  background-color: var(--accent);
   border: none;
-  border-radius: 5px;
-  color: #eee;
+  border-radius: 6px;
+  color: var(--on-accent);
   font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.15s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loadingState,
+.emptyState {
+  color: var(--soft);
+  padding: 20px 0;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .post {
+    flex-wrap: wrap;
+  }
+
+  .imgContainer {
+    width: 100%;
+    height: 180px;
+  }
 }
