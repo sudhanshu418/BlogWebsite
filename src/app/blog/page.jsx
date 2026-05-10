@@ -13,17 +13,47 @@ async function getData() {
   return JSON.parse(JSON.stringify(posts));
 }
 
+const EmptyState = ({ children }) => (
+  <div
+    style={{
+      padding: "48px 0",
+      color: "var(--muted)",
+      fontSize: 16,
+      lineHeight: 1.6,
+    }}
+  >
+    {children}
+  </div>
+);
+
 const Blog = async () => {
-  const data = await getData();
+  let data = [];
+  let loadError = null;
+
+  try {
+    data = await getData();
+  } catch (err) {
+    console.error("[blog] failed to load posts:", err);
+    loadError = err?.message || "Unknown error";
+  }
+
+  if (loadError) {
+    return (
+      <EmptyState>
+        <p style={{ marginBottom: 8, color: "var(--text)", fontWeight: 600 }}>
+          We couldn&apos;t load posts right now.
+        </p>
+        <p>
+          The database isn&apos;t responding. If you&apos;re the site owner,
+          check that the <code>MONGO</code> environment variable is set on
+          your host and that the connection string is reachable.
+        </p>
+      </EmptyState>
+    );
+  }
 
   if (!data || data.length === 0) {
-    return (
-      <div>
-        <p style={{ color: "var(--muted)", padding: "40px 0" }}>
-          No posts yet.
-        </p>
-      </div>
-    );
+    return <EmptyState>No posts yet — check back soon.</EmptyState>;
   }
 
   return (

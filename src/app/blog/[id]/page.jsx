@@ -29,7 +29,29 @@ export async function generateMetadata({ params }) {
 }
 
 const BlogPost = async ({ params }) => {
-  const data = await getData(params.id);
+  let data;
+  try {
+    data = await getData(params.id);
+  } catch (err) {
+    console.error("[blog/[id]] failed to load post:", err);
+    return (
+      <div
+        style={{
+          padding: "48px 0",
+          color: "var(--muted)",
+          lineHeight: 1.6,
+        }}
+      >
+        <h1 style={{ color: "var(--text)", marginBottom: 12 }}>
+          Couldn&apos;t load this post
+        </h1>
+        <p>
+          The database isn&apos;t responding. Please try again in a moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
