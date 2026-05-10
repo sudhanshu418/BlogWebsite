@@ -70,3 +70,18 @@
 .link:hover {
   color: var(--text);
 }
+
+.errorText {
+  width: 300px;
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: rgba(214, 69, 69, 0.12);
+  color: #c23b3b;
+  font-size: 14px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

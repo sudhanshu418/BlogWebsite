@@ -77,3 +77,19 @@
 .google:hover {
   background-color: rgba(228, 97, 50, 1);
 }
+
+.errorText {
+  width: 300px;
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: rgba(214, 69, 69, 0.12);
+  color: #c23b3b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

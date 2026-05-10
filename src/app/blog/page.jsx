@@ -2,34 +2,48 @@ import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import connect from "@/utils/db";
+import Post from "@/models/Post";
+
+export const dynamic = "force-dynamic";
 
 async function getData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/posts`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  await connect();
+  const posts = await Post.find().sort({ createdAt: -1 }).lean();
+  return JSON.parse(JSON.stringify(posts));
 }
 
 const Blog = async () => {
   const data = await getData();
+
+  if (!data || data.length === 0) {
+    return (
+      <div>
+        <p style={{ color: "var(--muted)", padding: "40px 0" }}>
+          No posts yet.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.mainContainer}>
+    <div>
       {data.map((item) => (
-        <Link href={`/blog/${item._id}`} className={styles.container} key={item.id}>
+        <Link
+          href={`/blog/${item._id}`}
+          className={styles.container}
+          key={item._id}
+        >
           <div className={styles.imageContainer}>
-            <Image
-              src={item.img}
-              alt=""
-              width={400}
-              height={250}
-              className={styles.image}
-            />
+            {item.img ? (
+              <Image
+                src={item.img}
+                alt=""
+                width={400}
+                height={250}
+                className={styles.image}
+              />
+            ) : null}
           </div>
           <div className={styles.content}>
             <h1 className={styles.title}>{item.title}</h1>

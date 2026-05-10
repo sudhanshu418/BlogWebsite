@@ -2,27 +2,30 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import connect from "@/utils/db";
+import Post from "@/models/Post";
+import mongoose from "mongoose";
+
+export const dynamic = "force-dynamic";
 
 async function getData(id) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/posts/${id}`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    return notFound();
-  }
-
-  return res.json();
+  if (!mongoose.isValidObjectId(id)) return notFound();
+  await connect();
+  const post = await Post.findById(id).lean();
+  if (!post) return notFound();
+  return JSON.parse(JSON.stringify(post));
 }
 
-
 export async function generateMetadata({ params }) {
-
-  const post = await getData(params.id)
-  return {
-    title: post.title,
-    description: post.desc,
-  };
+  try {
+    const post = await getData(params.id);
+    return {
+      title: post.title,
+      description: post.desc,
+    };
+  } catch {
+    return { title: "Post — Daily Blog" };
+  }
 }
 
 const BlogPost = async ({ params }) => {
@@ -32,35 +35,34 @@ const BlogPost = async ({ params }) => {
       <div className={styles.top}>
         <div className={styles.info}>
           <h1 className={styles.title}>{data.title}</h1>
-          <p className={styles.desc}>
-            {data.desc}
-          </p>
+          <p className={styles.desc}>{data.desc}</p>
           <div className={styles.author}>
-            <Image
-              src={data.img}
-              alt=""
-              width={40}
-              height={40}
-              className={styles.avatar}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            {data.img ? (
+              <Image
+                src={data.img}
+                alt=""
+                width={40}
+                height={40}
+                className={styles.avatar}
+              />
+            ) : null}
             <span className={styles.username}>{data.username}</span>
           </div>
         </div>
         <div className={styles.imageContainer}>
-          <Image
-            src={data.img}
-            alt=""
-            fill={true}
-            className={styles.image}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {data.img ? (
+            <Image
+              src={data.img}
+              alt=""
+              fill={true}
+              className={styles.image}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          ) : null}
         </div>
       </div>
       <div className={styles.content}>
-        <p className={styles.text}>
-         {data.content}
-        </p>
+        <p className={styles.text}>{data.content}</p>
       </div>
     </div>
   );
