@@ -1,9 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, getProviders } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+
+const errorMessages = {
+  Configuration:
+    "Sign-in is misconfigured on the server. Check that NEXTAUTH_SECRET, NEXTAUTH_URL, and provider credentials are set.",
+  CredentialsSignin: "Invalid email or password.",
+  OAuthSignin: "Could not start Google sign-in. Please try again.",
+  OAuthCallback: "Google sign-in failed on the return trip. Please try again.",
+  OAuthAccountNotLinked:
+    "This email is already used with a different sign-in method.",
+  AccessDenied: "Access denied.",
+  default: "Something went wrong signing you in.",
+};
+
+const friendlyError = (code) =>
+  (code && (errorMessages[code] || errorMessages.default)) || "";
 
 const Login = () => {
   const session = useSession();
@@ -14,11 +29,16 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [providers, setProviders] = useState(null);
 
   useEffect(() => {
-    setError(params.get("error") || "");
+    setError(friendlyError(params.get("error")));
     setSuccess(params.get("success") || "");
   }, [params]);
+
+  useEffect(() => {
+    getProviders().then(setProviders).catch(() => setProviders({}));
+  }, []);
 
   if (session.status === "loading") {
     return <p>Loading…</p>;
@@ -48,7 +68,7 @@ const Login = () => {
       if (res?.ok) {
         router.push("/dashboard");
       } else {
-        setError("Invalid email or password.");
+        setError(friendlyError(res?.error) || "Invalid email or password.");
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -56,6 +76,8 @@ const Login = () => {
       setSubmitting(false);
     }
   };
+
+  const googleEnabled = providers && providers.google;
 
   return (
     <div className={styles.container}>
@@ -90,13 +112,17 @@ const Login = () => {
           </p>
         )}
       </form>
-      <button
-        type="button"
-        onClick={() => signIn("google")}
-        className={`${styles.button} ${styles.google}`}
-      >
-        Login with Google
-      </button>
+
+      {googleEnabled && (
+        <button
+          type="button"
+          onClick={() => signIn("google")}
+          className={`${styles.button} ${styles.google}`}
+        >
+          Login with Google
+        </button>
+      )}
+
       <span className={styles.or}>- OR -</span>
       <Link className={styles.link} href="/dashboard/register">
         Create new account
