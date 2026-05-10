@@ -3,27 +3,68 @@ import connect from "@/utils/db";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const errorResponse = (message, status) =>
+  NextResponse.json({ error: message }, { status });
+
 export const POST = async (request) => {
-  const { name, email, password } = await request.json();
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return errorResponse("Invalid request body.", 400);
+  }
 
-  await connect();
+  const { name, email, password } = payload || {};
 
-  const hashedPassword = await bcrypt.hash(password, 5); 
-
-  const newUser = new User({
-    name,
-    email,
-    password: hashedPassword,
-  });
+  if (!name || !email || !password) {
+    return errorResponse("Name, email, and password are required.", 400);
+  }
+  if (!EMAIL_RE.test(email)) {
+    return errorResponse("Please enter a valid email address.", 400);
+  }
+  if (password.length < 6) {
+    return errorResponse("Password must be at least 6 characters.", 400);
+  }
 
   try {
-    await newUser.save();
-    return new NextResponse("User has been created", {
-      status: 201,
-    });
+    await connect();
   } catch (err) {
-    return new NextResponse(err.message, {
-      status: 500,
+    console.error("[register] db connect failed:", err);
+    return errorResponse(
+      "Could not reach the database. Please try again later.",
+      503
+    );
+  }
+
+  try {
+    const existing = await User.findOne({
+      $or: [{ email: email.toLowerCase() }, { name }],
     });
+    if (existing) {
+      return errorResponse(
+        "An account with that name or email already exists.",
+        409
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await new User({
+      name,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+    }).save();
+
+    return NextResponse.json({ ok: true }, { status: 201 });
+  } catch (err) {
+    console.error("[register] failed:", err);
+    if (err?.code === 11000) {
+      return errorResponse(
+        "An account with that name or email already exists.",
+        409
+      );
+    }
+    return errorResponse("Could not create account. Please try again.", 500);
   }
 };

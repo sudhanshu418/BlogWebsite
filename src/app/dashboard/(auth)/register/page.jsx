@@ -44,14 +44,14 @@ const Register = () => {
         return;
       }
 
-      const text = await res.text().catch(() => "");
-      if (text && text.toLowerCase().includes("duplicate")) {
-        setError("An account with that name or email already exists.");
-      } else if (text) {
-        setError(text);
-      } else {
-        setError(`Sign up failed (status ${res.status}).`);
+      let message = "";
+      try {
+        const body = await res.json();
+        message = body?.error || "";
+      } catch {
+        message = await res.text().catch(() => "");
       }
+      setError(message || `Sign up failed (status ${res.status}).`);
     } catch (err) {
       setError("Network error — please try again.");
     } finally {
